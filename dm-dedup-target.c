@@ -76,7 +76,7 @@ static uint64_t bio_lbn(struct dedup_config *dc, struct bio *bio)
 static void do_io_remap_device(struct dedup_config *dc, struct bio *bio)
 {
 	bio_set_dev(bio, dc->data_dev->bdev);
-	generic_make_request(bio);
+	submit_bio_noacct(bio);
 }
 
 /*
@@ -1319,6 +1319,10 @@ static void dm_dedup_status(struct dm_target *ti, status_type_t status_type,
 		DMEMIT("%s %s %u %s %s %u",
 		       dc->metadata_dev->name, dc->data_dev->name, dc->block_size,
 			dc->crypto_alg, dc->backend_str, dc->flushrq);
+		break;
+	case STATUSTYPE_IMA:
+		*result = '\0';
+		break;
 	}
 }
 

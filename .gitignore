@@ -2,6 +2,10 @@
 *.o
 *.cmd
 Module.symvers
+dm-dedup.mod
 dm-dedup.mod.c
 modules.order
 .tmp_versions/
+.cache/
+.vscode/
+compile_commands.json

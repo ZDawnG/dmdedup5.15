@@ -156,8 +156,8 @@ static struct bio *create_bio(struct dedup_config *dc,
 	clone = bio_kmalloc(GFP_NOIO, 1);
 	if (!clone)
 		goto out;
-	clone->bi_disk = bio->bi_disk;
-	clone->bi_partno = bio->bi_partno;
+	clone->bi_bdev->bd_disk = bio->bi_bdev->bd_disk;
+	clone->bi_bdev->bd_partno = bio->bi_bdev->bd_partno;
 	clone->bi_opf = bio->bi_opf;
 
 	clone->bi_iter.bi_sector = compute_sector(bio, dc);
